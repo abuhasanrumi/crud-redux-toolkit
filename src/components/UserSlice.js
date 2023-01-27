@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { v4 as uuidv4 } from 'uuid';
 
-const localUsers = localStorage.getItem('state.users') !== null ? JSON.parse(localStorage.getItem('state.users')) : []
+const localUsers = localStorage.getItem('state.users') !== null ? JSON.parse(localStorage.getItem('state.users')) : [
+    { id: uuidv4(), name: "Abu Hasan Rumi", email: "abasdsa@gasd.com" }, { id: uuidv4(), name: "Iyahiya Khan", email: "habib@gmail.com" }]
 
 const initialUsers = {
     users: localUsers
@@ -27,6 +28,7 @@ export const userSlice = createSlice({
         deleteUser: (state, action) => {
             const id = action.payload
             state.users = state.users.filter(user => user.id !== id)
+            localStorage.setItem('state.users', JSON.stringify(state.users.map(user => user)))
         },
     }
 })
